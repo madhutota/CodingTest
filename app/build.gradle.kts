@@ -85,17 +85,9 @@ dependencies {
 
     // Coroutine test
     testImplementation (libs.kotlinx.coroutines.test)
-
-
-// Turbine for StateFlow testing
     testImplementation (libs.turbine)
-
     testImplementation(libs.mockito)
 
 
-    /*testImplementation "app.cash.turbine:turbine:1.1.0"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3"
-    testImplementation "org.mockito:mockito-core:4.11.0"
-    testImplementation "org.mockito.kotlin:mockito-kotlin:4.1.0"*/
 
 }
