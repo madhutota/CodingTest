@@ -2,6 +2,7 @@ package com.madhu.codingtest.presentation.home
 
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -9,10 +10,13 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -40,7 +44,17 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel(), modifier: Modifier) {
 
         is UIState.Failure -> {
             val error = (cryptoState as UIState.Failure).throwable
+            Column(
+                modifier = Modifier.padding(16.dp)
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text("Error: ${error?.message}", color = Color.Red)
+            }
+
         }
+
         is UIState.Success -> {
             val characters = (cryptoState as UIState.Success).data.characters
             LazyVerticalGrid(
@@ -52,8 +66,8 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel(), modifier: Modifier) {
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(characters, key = { it.name }) { character ->
-                    Log.d("Api Data","$character")
+                items(characters, key = { it.id }) { character ->
+                    Log.d("Api Data", "$character")
                     CharacterGridItem(
                         modifier = Modifier.fillMaxWidth(),
                         character = character
